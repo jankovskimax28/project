@@ -1,0 +1,52 @@
+<ng4-loading-spinner> </ng4-loading-spinner>
+
+<button *ngIf="(role != '1') && (role != '2') && (role != '4')"  type="button" class="btn btn-success " style=" padding: 7px 50px; margin-right: 5px"  (click)="openModal(template)">New project</button>
+
+<ng-template #template>
+      <div class="modal-header">
+        <h5 class="modal-title" id="Label">New project</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label >Project-code</label>
+            <input type="text" class="form-control" [formControl]="projectControl">
+            <div *ngIf="projectControl.touched">
+              <div class="alert alert-danger" *ngIf="projectControl.invalid">
+                Не верно введен project-code
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="smmr">Summary</label>
+            <textarea type="text" class="form-control" id="smmr" [(ngModel)]="project.summary" name="sum" #summary="ngModel" rows="5"></textarea>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" [disabled]="projectControl.invalid"  (click)="createProject(summary)">Create new project</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+</ng-template>
+
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Project</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Project Created
+      </div>
+    </div>
+  </div>
+</div>

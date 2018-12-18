@@ -1,0 +1,98 @@
+
+<ng4-loading-spinner> </ng4-loading-spinner>
+<h1>Project</h1>
+<h4>Description</h4>
+<div class="btn-group" role="group" aria-label="Basic example" style="width: 100%; margin-top: 10px;">
+  <button type="button" class="btn btn-success col-2" *ngIf="role == 3" (click)="editTaskOn()" >Edit</button>
+  <button type="button" class="btn btn-success col-2" (click)="updateTask()" [disabled]="estim.invalid">Update</button>
+
+
+</div>
+<p></p>
+<h4>Details:</h4>
+<div style="height: 200px; width: 100%;">
+  <div style="height: 180px; float:left; width:400px; margin-top: 20px ">
+    <form>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Priority</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="prior" [disabled]="editBatton" [(ngModel)]="task.priority" name="prioiry" #prioiry="ngModel">
+            <option *ngFor="let priority1 of priority" [value]="priority1.id" >{{priority1.typePriority}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Status</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="status" [(ngModel)]="task.status" name="statu" #statu="ngModel">
+            <option *ngFor="let status1 of status" [value]="status1.id" >{{status1.typeStatus}}</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div style="height: 180px; float:right; width:450px; margin-top: 20px ">
+    <form>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Assignee</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="assig"  [(ngModel)]="task.assignee" name="assign" #assign="ngModel">
+            <option *ngFor="let user of users" [value]="user.id" >{{user.login}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Reporter</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" [value]="task.userByReporter.login" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Estimation</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" [value]="task.estimation" [readonly]="editBatton"
+                 [(ngModel)]="task.estimation" name="estim" #estim="ngModel"required pattern="[0-9]{1,5}">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<h4>Description:</h4>
+<div style="height: 250px; width: 100%;">
+  <div style="height: 180px; float:left; width:400px; margin-top: 20px ">
+    <form>
+      <div class="form-group">
+        <textarea class="form-control" id="txt" rows="8" [readonly]="editBatton" [value]="task.description"
+                  [(ngModel)]="task.description" name="des" #des="ngModel"></textarea>
+      </div>
+    </form>
+  </div>
+  <div style="height: 180px; float:right; width:450px; margin-top: 20px ">
+    <form>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Created:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" placeholder="?????" readonly [value]="task.createDate | date">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Updated:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text"  [value]="task.updateDate | date" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Resolved:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" placeholder="?????" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Closed:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" placeholder="?????" readonly>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

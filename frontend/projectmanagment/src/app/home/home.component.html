@@ -1,0 +1,26 @@
+
+<nav class="navbar navbar-dark bg-secondary">
+  <div class="btn-group" role="group" aria-label="Basic example">
+  <app-project [role]="currentUser.roleId"></app-project>
+  <app-user [role]="currentUser.roleId"></app-user>
+  <app-task [role]="currentUser.roleId" [id]="currentUser.id"></app-task>
+  </div>
+  <span class="navbar-text">
+    <div >
+  <h5  style="margin-left: 500px"><span class="badge badge-success">login:</span>     {{currentUser.login}}     <span class="badge badge-success"  >role:</span>     {{currentUser.roleByRoleId.typeRole}}</h5>
+
+    </div>
+  </span>
+  <button  style="right: 10px" type="button" class="btn btn-outline-success" (click)="logOut()">LogOut</button>
+</nav>
+
+
+<div style="margin-top: 70px; padding: 10px; height: 400px " >
+  <app-table [role]="currentUser.roleId"></app-table>
+</div>
+
+
+
+
+
+

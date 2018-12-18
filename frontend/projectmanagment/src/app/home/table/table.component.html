@@ -1,0 +1,48 @@
+
+<div>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" AUTOCOMPLETE="off" placeholder="Search by ticket-code" aria-label="Search" [(ngModel)]="code" name="code">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="Search(code)">Search</button>
+  </form>
+</div>
+  <table class="table" style="margin-top: 10px">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">Ticket-code</th>
+      <th scope="col">Project-code</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Status</th>
+      <th scope="col">Created</th>
+      <th scope="col">Updated</th>
+      <th scope="col">Due Date</th>
+      <th scope="col">Estimation</th>
+      <th scope="col">Assignee</th>
+      <th scope="col">Description</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let task of tasks">
+      <td >  <a routerLink="/edit" [queryParams]="{'id': task.id, 'role': role}" class="text-primary">{{task.ticetCode}}</a></td>
+      <td>{{task.projectByProjectId.projectcode}}</td>
+      <td>{{task.priorityByPriority.typePriority}}</td>
+      <td>{{task.statusByStatus.typeStatus}}</td>
+      <td>{{task.createDate | date }}</td>
+      <td>{{task.updateDate | date }}</td>
+      <td>{{task.dueDate | date}}</td>
+      <td>{{task.estimation}}</td>
+      <td>{{task.userByAssignee.login}}</td>
+      <td>{{task.description}}</td>
+
+
+      <td><button type="button" class="btn btn-danger" (click)="deleteTask(task.id)">Delete</button></td>
+    </tr>
+    <div >
+      <h5>Page: {{page}}</h5>
+      <button type="button" class="btn btn-secondary" [disabled]="offset == 0" (click)="BackTask()">BACK:  <span class="badge badge-light">{{page-1}}</span> </button>
+      <button type="button" class="btn btn-secondary" [disabled]="button == true" (click)="NextTask()" >NEXT:  <span class="badge badge-light">{{page+1}}</span></button>
+    </div>
+    </tbody>
+  </table>
+
+

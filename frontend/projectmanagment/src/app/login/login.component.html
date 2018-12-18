@@ -1,0 +1,62 @@
+<h2>Project managment </h2>
+
+<form>
+  <div class="form-group">
+    <label for="code">Login</label>
+    <input type="text" class="form-control col-4" id="code"  placeholder="Enter login" [(ngModel)]="login" name="login" required>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control col-4" id="password" placeholder="Password" [(ngModel)]="password" name="password">
+  </div>
+  <button type="submit" class="btn btn-success" (click)="authorization()">Submit</button>
+</form>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title" id="Label">New user</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Login</label>
+        <input type="text" class="form-control" [formControl]="userControl">
+        <div *ngIf="userControl.touched">
+          <div class="alert alert-danger" *ngIf="userControl.invalid">
+            Не верно введен login
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pass">Password</label>
+        <input type="text" class="form-control" id="pass" [formControl]="passwordControl">
+        <div *ngIf="passwordControl.touched">
+          <div class="alert alert-danger" *ngIf="passwordControl.invalid">
+            Не верно введен пароль
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" [formControl]="emailControl">
+        <div  *ngIf="emailControl.touched">
+          <div class="alert alert-danger" *ngIf="emailControl.invalid"> Не верно введен email</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="select" >User role</label>
+        <select  class="form-control" id="select" [(ngModel)]="user.roleId" name="role" #role="ngModel" required>
+          <option *ngFor="let role of roles" [value]="role.id" selected>{{role.typeRole}}</option>
+        </select>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" [disabled]="emailControl.invalid || userControl.invalid || passwordControl.invalid || role.invalid"  (click)="createUser(roleId)">Create new user</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</ng-template>

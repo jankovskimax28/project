@@ -1,0 +1,62 @@
+<ng4-loading-spinner> </ng4-loading-spinner>
+
+<button *ngIf="(role != '2') && (role != '4')"   style=" padding: 7px 50px; margin-right: 5px"  type="button" class="btn btn-success " data-toggle="modal" (click)="openModal(template)" >New task</button>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title" id="Label">New Task</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="prjt">Project Code</label>
+        <select  class="form-control" id="prjt" [(ngModel)]="task.projectId" name="proj" #proj="ngModel" required>
+          <option *ngFor="let project of projects" [value]="project.projectId">{{project.projectcode}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="des">Description</label>
+        <textarea type="text" class="form-control" id="des" rows="2" [(ngModel)]="task.description" name="descrip" #descrip="ngModel" ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="select">Priority</label>
+        <select  class="form-control" id="select" [(ngModel)]="task.priority" name="prior" #prior="ngModel" required>
+          <option *ngFor="let priority1 of priority" [value]="priority1.id">{{priority1.typePriority}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="date">Due Date</label>
+        <input type="date" class="form-control" id="date" name="date" placeholder="Дата" [(ngModel)]="task.dueDate" name="due" #due="ngModel">
+      </div>
+      <div class="form-group">
+        <label for="es">Estimation(h)</label>
+        <input type="text" class="form-control" id="es" [(ngModel)]="task.estimation" name="estimation" #estimation="ngModel" required pattern="[0-9]{1,5}"/>
+        <div  *ngIf="estimation.touched">
+        <div [hidden]="estimation.valid" class="alert alert-danger">
+          incorrect data
+        </div>
+        </div>
+        <label for="assig">Assignee</label>
+        <select class="form-control" id="assig" [(ngModel)]="task.assignee" name="assign" #assign="ngModel" required>
+          <option *ngFor="let user of users" [value]="user.id">{{user.login}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="tick">Ticket code</label>
+        <input type="text" class="form-control" id="tick"[(ngModel)]="task.ticetCode" name="ticet" #ticet="ngModel" required>
+      </div>
+  </form>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" [disabled]="estimation.invalid || proj.invalid || prior.invalid || assign.invalid || ticet.invalid" (click)="createTask(projectId, priority, description,typePriority,dueDate,estimation,assignee,ticetCode)">Create new Task</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</ng-template>
+
+
+
